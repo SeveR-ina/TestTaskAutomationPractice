@@ -1,9 +1,6 @@
 package Pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -32,23 +29,10 @@ public class AccCreationPage extends BasePage {
     @FindBy(id = "submitAccount")
     private WebElement buttonRegister;
 
-    /*    @FindBy(id = "firstname")
-    private WebElement firstNameTextArea;
-    @FindBy(id = "lastname")
-    private WebElement lastNameTextArea;
-    @FindBy(id = "email")
-    private WebElement emailTextArea;
-    @FindBy(id = "id_country")
-    private WebElement countrySelect;
-    @FindBy(id = "alias")
-    private WebElement aliasTextArea;
+    @FindBy(className = "page-heading")
+    private WebElement formHeader;
     @FindBy(css = "div[class='alert alert-danger']")
-    private WebElement alert;*/
-/*    @FindBy(xpath = "//li[contains(text(), 'lastname is invalid.')]")
-    //@FindBy(xpath = "//*[contains(text(), 'lastname is invalid.')]")
-    //@FindBy(xpath = "//ol[contains(@tagName,'li') and contains(., 'lastname is invalid.')]")
-    //@FindBy(xpath = "//ol[contains(@tagName,'li') and text()='lastname is invalid.']")
-    private WebElement lastNameIsInvalidError;*/
+    private WebElement alert;
 
     public AccCreationPage(WebDriver driver) {
         super(driver);
@@ -82,7 +66,7 @@ public class AccCreationPage extends BasePage {
     }
 
     private void openSelector() {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", mobPhoneTextArea);
+        scrollToElement(mobPhoneTextArea);
         stateSelect.click();
         waitForVisibilityOf(firstStateOption);
         while (!firstStateOption.isDisplayed()) {
@@ -93,5 +77,34 @@ public class AccCreationPage extends BasePage {
     private void clickOption(String state) {
         WebElement option = driver.findElement(By.xpath("//select[@id = 'id_state']/option[text()='" + state + "']"));
         option.click();
+    }
+
+    public void clearField(String field, String value) {
+        switch (field) {
+            case "email":
+            case "Email":
+                WebElement emailTextArea = driver.findElement(By.xpath("//input[@value='" + value + "']"));
+                scrollToElement(emailTextArea);
+                emailTextArea.clear();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public boolean alertContainsErrorText(String error) {
+        if (alert.isDisplayed()) {
+            return alert.getText().contains(error);
+        }
+        return false;
+    }
+
+    public void viewAlert() {
+        scrollToElement(formHeader);
+        waitForVisibilityOf(alert);
+    }
+
+    private void scrollToElement(WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 }

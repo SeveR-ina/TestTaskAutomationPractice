@@ -17,6 +17,8 @@ public class AuthPage extends BasePage {
     private WebElement passTextArea;
     @FindBy(id = "SubmitLogin")
     private WebElement buttonLogin;
+    @FindBy(id = "create_account_error")
+    private WebElement alert;
 
     public AuthPage(WebDriver driver) {
         super(driver);
@@ -25,7 +27,7 @@ public class AuthPage extends BasePage {
     public void fillSignUpForm(String email) {
         waitForVisibilityOf(emailCreateTextArea);
         typeInField(emailCreateTextArea, email);
-        buttonCreateAcc.click();
+        submitSignUpForm();
     }
 
     public void fillLogInForm(String email, String pass) {
@@ -35,12 +37,24 @@ public class AuthPage extends BasePage {
         buttonLogin.click();
     }
 
+    public void submitSignUpForm() {
+        buttonCreateAcc.click();
+    }
+
     public AccCreationPage getAccCreationPage() {
         return PageFactory.initElements(driver, AccCreationPage.class);
     }
 
     private void typeInField(WebElement field, String value) {
         sendKeys(field, value);
+    }
+
+    public boolean alertContainsErrorText(String error) {
+        waitForVisibilityOf(alert);
+        if (alert.isDisplayed()) {
+            return alert.getText().contains(error);
+        }
+        return false;
     }
 
 }

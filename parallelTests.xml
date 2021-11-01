@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="All tests" parallel="tests" thread-count="3">
-    <test name="Chrome_Tests" parallel="classes" thread-count="2">
+    <test name="Chrome_Tests" parallel="classes" thread-count="3">
         <parameter name="browser" value="Chrome"/>
         <classes>
             <class name="AccountCreationTests"/>
@@ -9,7 +9,7 @@
         </classes>
     </test>
 
-    <test name="FireFox_Tests" parallel="classes" thread-count="2">
+    <test name="FireFox_Tests" parallel="classes" thread-count="3">
         <parameter name="browser" value="FireFox"/>
         <classes>
             <class name="AccountCreationTests"/>
@@ -17,7 +17,7 @@
         </classes>
     </test>
 
-    <test name="Edge_Tests" parallel="classes" thread-count="2">
+    <test name="Edge_Tests" parallel="classes" thread-count="3">
         <parameter name="browser" value="Edge"/>
         <classes>
             <class name="AccountCreationTests"/>

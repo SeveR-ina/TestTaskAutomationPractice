@@ -93,17 +93,4 @@ abstract class BeforeTests {
         return testProperties.getProperty(driverURL);
     }
 
-    /*HomePage signInAndReturnHomePage(SignInPage signInPage, String email, String pass) {
-        signIn(signInPage, email, pass);
-        return signInPage.returnHomePage();
-    }
-
-    public void signIn(AuthPage signInPage, String login, String pass) {
-        signInPage.typeToLoginAndPass(login, pass);
-        signInPage.submit();
-    }
-
-    public void checkIfUserSignedIn(HomePage homePage) {
-        Assert.assertTrue(homePage.ifUserSignedIn()); //chats link is visible
-    } */
 }

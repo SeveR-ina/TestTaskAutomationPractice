@@ -22,14 +22,6 @@ abstract public class BasePage {
         new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_TIMEOUT)).until(ExpectedConditions.visibilityOf(webElement));
     }
 
-/*    public void waitForVisibilityOfElementLocated(By locator) {
-        new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_TIMEOUT)).until(ExpectedConditions.visibilityOfElementLocated(locator));
-    }
-
-    public void waitForInvisibilityOfElementLocated(By locator) {
-        new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_TIMEOUT)).until(ExpectedConditions.invisibilityOfElementLocated(locator));
-    }*/
-
     public void sendKeys(WebElement field, String text) {
         field.click();
         field.clear();

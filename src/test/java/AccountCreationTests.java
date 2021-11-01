@@ -4,7 +4,6 @@ import Pages.MyAccPage;
 import org.testng.annotations.*;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 
 import static net.andreinc.mockneat.types.enums.PassStrengthType.MEDIUM;
 import static net.andreinc.mockneat.unit.address.Addresses.addresses;
@@ -91,24 +90,20 @@ public class AccountCreationTests extends BeforeTests {
     }
 
     @DataProvider(name = "dataProvider")
-    public Object[][] dpMethod(Method m) {
-        email = emails().domain("automationpractice.com").get();
-        firstName = names().first().get();
-        lastName = names().last().get();
-        pass = passwords().type(MEDIUM).get();
-        address = addresses().line1().get();
-        city = cities().us().get();
-        state = testProperties.getProperty("state");
-        postalCode = ints().rangeClosed(10000, 99999).get().toString();
-        mobilePhone = longs().rangeClosed(900000000, 999999999)
+    public Object[][] dpMethod() {
+        this.email = emails().domain(testProperties.getProperty("domain")).get();
+        this.firstName = names().first().get();
+        this.lastName = names().last().get();
+        this.pass = passwords().type(MEDIUM).get();
+        this.address = addresses().line1().get();
+        this.city = cities().us().get();
+        this.state = testProperties.getProperty("state");
+        this.postalCode = ints().rangeClosed(10000, 99999).get().toString();
+        this.mobilePhone = longs().rangeClosed(900000000, 999999999)
                 .get().toString();
-        return new Object[][]{{email, firstName, lastName, pass, address, city,
-                state, postalCode, mobilePhone}};
+        return new Object[][]{{this.email, this.firstName, this.lastName,
+                this.pass, this.address, this.city,
+                this.state, this.postalCode, this.mobilePhone}};
     }
 
-    /*    @DataProvider(name = "dataProvider")
-    public Object[][] dpMethod() {
-        String email = emails().domain("automationpractice.com").get();
-        return new Object[][] {{email}};
-    }*/
 }

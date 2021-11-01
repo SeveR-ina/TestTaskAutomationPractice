@@ -11,27 +11,36 @@ public class AuthPage extends BasePage {
     private WebElement emailCreateTextArea;
     @FindBy(id = "SubmitCreate")
     private WebElement buttonCreateAcc;
+    @FindBy(id = "email")
+    private WebElement emailTextArea;
+    @FindBy(id = "passwd")
+    private WebElement passTextArea;
+    @FindBy(id = "SubmitLogin")
+    private WebElement buttonLogin;
 
     public AuthPage(WebDriver driver) {
         super(driver);
     }
 
-    public void createAcc(String email) {
-        typeInEmail(email);
-        submit();
+    public void fillSignUpForm(String email) {
+        waitForVisibilityOf(emailCreateTextArea);
+        typeInField(emailCreateTextArea, email);
+        buttonCreateAcc.click();
     }
 
-    public AccCreationPage returnAccCreationPage() {
+    public void fillLogInForm(String email, String pass) {
+        waitForVisibilityOf(emailTextArea);
+        typeInField(emailTextArea, email);
+        typeInField(passTextArea, pass);
+        buttonLogin.click();
+    }
+
+    public AccCreationPage getAccCreationPage() {
         return PageFactory.initElements(driver, AccCreationPage.class);
     }
 
-    private void typeInEmail(String email) {
-        waitForVisibilityOf(emailCreateTextArea);
-        sendKeys(emailCreateTextArea, email);
-    }
-
-    private void submit() {
-        buttonCreateAcc.click();
+    private void typeInField(WebElement field, String value) {
+        sendKeys(field, value);
     }
 
 }

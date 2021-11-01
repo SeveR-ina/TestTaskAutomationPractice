@@ -39,7 +39,7 @@ abstract class BeforeTests {
         driver.quit();
     }
 
-    public HomePage returnHomePage() {
+    public HomePage getHomePage() {
         return PageFactory.initElements(driver, HomePage.class);
     }
 

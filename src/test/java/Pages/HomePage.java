@@ -14,7 +14,7 @@ public class HomePage extends BasePage {
         super(driver);
     }
 
-    public AuthPage returnAuthPage() {
+    public AuthPage getAuthPage() {
         waitForVisibilityOf(signInLink);
         signInLink.click();
         return PageFactory.initElements(driver, AuthPage.class);

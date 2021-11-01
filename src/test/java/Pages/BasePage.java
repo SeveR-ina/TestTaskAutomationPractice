@@ -30,22 +30,9 @@ abstract public class BasePage {
         new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_TIMEOUT)).until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }*/
 
-    public void signOut(WebElement element) {
-        element.click();
-    }
-
     public void sendKeys(WebElement field, String text) {
         field.click();
         field.clear();
         field.sendKeys(text);
-    }
-
-    public HomePage returnHomePage(WebElement element) {
-        element.click();
-        return PageFactory.initElements(driver, HomePage.class);
-    }
-
-    public HomePage returnHomePage() {
-        return PageFactory.initElements(driver, HomePage.class);
     }
 }

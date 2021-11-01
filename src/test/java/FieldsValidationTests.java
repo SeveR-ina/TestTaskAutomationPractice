@@ -17,7 +17,7 @@ public class FieldsValidationTests extends BeforeTests {
     @BeforeMethod
     public void openHomePage(String browser) {
         openBrowsers(browser);
-        homePage = returnHomePage();
+        homePage = getHomePage();
         assertNotNull(homePage);
     }
 

@@ -11,3 +11,10 @@
     •	Tests parameterization
 
 4. English Task: Communication (Необходимо написать запрос заказчику на английском языке): Вы нашли, как Вам кажется, дефект в приложении, которое Вы тестируете. Вы пишите об этом заказчику, описывая суть данной "проблемы", и говорите, как по вашему должно работать корректно приложение. Отмечая, что в документации, которая имеется у Вас, нет точной информации на этот счет и просите выслать обновленную документацию, чтобы понять как все таки правильно должна работать данная "фича" согласно последним требованиям.
+-----
+Solution:
+1. https://docs.google.com/spreadsheets/d/1RmZ1R09Bvcq8WjNr1274iMq1ipmDESEG9osXuwnMyBg/edit?usp=sharing
+2. src->test->java->AccountCreationTests.createAccount
+   src->test->java->FieldsValidationTests.checkSignUpWithEmptyEmail
+   src->test->java->FieldsValidationTests.checkSignUpWithEmptyPersonalInfo
+3. https://docs.google.com/document/d/1TmD1vzt__bAlSHUx0t9RCphrzmDhPXEYs_n9dEh36ck/edit?usp=sharing

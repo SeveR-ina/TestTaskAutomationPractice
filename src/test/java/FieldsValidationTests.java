@@ -60,7 +60,7 @@ public class FieldsValidationTests extends BeforeTests {
         accCreationPage.submit();
 
         //Check that 4 fields* of the personal info are required in the alert:
-        accCreationPage.viewAlert();
+        assertNotNull(accCreationPage.getAlert());
         Assert.assertTrue(accCreationPage.alertContainsErrorText(propertyFirstNameIsRequired));
         Assert.assertTrue(accCreationPage.alertContainsErrorText(propertyLastNameIsRequired));
         Assert.assertTrue(accCreationPage.alertContainsErrorText(propertyEmailIsRequired));

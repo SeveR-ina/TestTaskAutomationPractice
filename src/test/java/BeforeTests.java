@@ -72,6 +72,7 @@ abstract class BeforeTests {
     }
 
     private void openChrome() {
+        //TODO: https://stackoverflow.com/questions/35867102/how-to-work-with-selenium-chrome-driver-in-maven-without-chromedriver-exe
         System.setProperty("webdriver.chrome.driver", getDriverUrl("chromeDir"));
         driver = new ChromeDriver();
         System.out.println("Chrome was launched Successfully");

@@ -18,15 +18,7 @@ import static org.testng.Assert.assertTrue;
 
 public class AccountCreationTests extends BeforeTests {
     private AuthPage authPage;
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String pass;
-    private String address;
-    private String city;
-    private String state;
-    private String postalCode;
-    private String mobilePhone;
+    AccInfo accInfo;
 
     @Parameters({"browser"})
     public AccountCreationTests(String browser) throws IOException {
@@ -55,24 +47,25 @@ public class AccountCreationTests extends BeforeTests {
                               String pass, String address, String city,
                               String state, String postalCode, String mobilePhone) {
         //Enter email and submit:
-        this.email = email;
-        authPage.fillSignUpForm(this.email);
+        accInfo = new AccInfo(email, firstName, lastName, pass, address, city, state, postalCode, mobilePhone);
+        accInfo.email = email;
+        authPage.fillSignUpForm(accInfo.email);
 
         AccCreationPage accCreationPage = authPage.getAccCreationPage();
         assertNotNull(accCreationPage);
 
         //Fill all requested fields and submit:
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.pass = pass;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.postalCode = postalCode;
-        this.mobilePhone = mobilePhone;
-        accCreationPage.fillRequiredFields(this.firstName, this.lastName,
-                this.pass, this.address, this.city, this.state,
-                this.postalCode, this.mobilePhone);
+        accInfo.firstName = firstName;
+        accInfo.lastName = lastName;
+        accInfo.pass = pass;
+        accInfo.address = address;
+        accInfo.city = city;
+        accInfo.state = state;
+        accInfo.postalCode = postalCode;
+        accInfo.mobilePhone = mobilePhone;
+        accCreationPage.fillRequiredFields(accInfo.firstName, accInfo.lastName,
+                accInfo.pass, accInfo.address, accInfo.city, accInfo.state,
+                accInfo.postalCode, accInfo.mobilePhone);
         accCreationPage.submit();
 
         //Log out from acc:
@@ -83,7 +76,7 @@ public class AccountCreationTests extends BeforeTests {
         //Sign in with saved email and pass:
         authPage = myAccPage.getAuthPage();
         assertNotNull(authPage);
-        authPage.fillLogInForm(this.email, this.pass);
+        authPage.fillLogInForm(accInfo.email, accInfo.pass);
         myAccPage = accCreationPage.returnMyAccPage();
         assertNotNull(myAccPage);
         assertTrue(myAccPage.signOutIsDiplayed());
@@ -91,19 +84,22 @@ public class AccountCreationTests extends BeforeTests {
 
     @DataProvider(name = "dataProvider")
     public Object[][] dpMethod() {
-        this.email = emails().domain(testProperties.getProperty("domain")).get();
-        this.firstName = names().first().get();
-        this.lastName = names().last().get();
-        this.pass = passwords().type(MEDIUM).get();
-        this.address = addresses().line1().get();
-        this.city = cities().us().get();
-        this.state = testProperties.getProperty("state");
-        this.postalCode = ints().rangeClosed(10000, 99999).get().toString();
-        this.mobilePhone = longs().rangeClosed(900000000, 999999999)
-                .get().toString();
-        return new Object[][]{{this.email, this.firstName, this.lastName,
-                this.pass, this.address, this.city,
-                this.state, this.postalCode, this.mobilePhone}};
+        accInfo = AccInfo.builder()
+                .email(emails().domain(testProperties.getProperty("domain")).get())
+                .firstName(names().first().get())
+                .lastName(names().last().get())
+                .pass(passwords().type(MEDIUM).get())
+                .address(addresses().line1().get())
+                .city(cities().us().get())
+                .state(testProperties.getProperty("state"))
+                .postalCode(ints().rangeClosed(10000, 99999).get().toString())
+                .mobilePhone("+" +
+                        ints().rangeClosed(10, 99).get().toString() +
+                        longs().rangeClosed(900000000, 999999999).get().toString())
+                .build();
+        return new Object[][]{{accInfo.email, accInfo.firstName, accInfo.lastName,
+                accInfo.pass, accInfo.address, accInfo.city,
+                accInfo.state, accInfo.postalCode, accInfo.mobilePhone}};
     }
 
 }

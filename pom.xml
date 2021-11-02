@@ -32,7 +32,7 @@
                 <version>3.0.0-M5</version>
                 <configuration>
                     <parallel>tests</parallel>
-                    <threadCount>5</threadCount>
+                    <threadCount>1</threadCount>
                     <suiteXmlFiles>
                         <suiteXmlFile>parallelTests.xml</suiteXmlFile>
                     </suiteXmlFiles>
@@ -73,6 +73,11 @@
             <groupId>net.andreinc</groupId>
             <artifactId>mockneat</artifactId>
             <version>0.4.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
         </dependency>
     </dependencies>
 

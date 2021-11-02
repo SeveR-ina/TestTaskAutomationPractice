@@ -20,8 +20,4 @@ public class HomePage extends BasePage {
         return PageFactory.initElements(driver, AuthPage.class);
     }
 
-/*    public void signOut() {
-        signOut(signOutLink);
-    }*/
-
 }

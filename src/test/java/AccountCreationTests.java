@@ -18,7 +18,6 @@ import static org.testng.Assert.assertTrue;
 
 public class AccountCreationTests extends BeforeTests {
     private AuthPage authPage;
-    AccInfo accInfo;
 
     @Parameters({"browser"})
     public AccountCreationTests(String browser) throws IOException {
@@ -43,26 +42,14 @@ public class AccountCreationTests extends BeforeTests {
     }
 
     @Test(dataProvider = "dataProvider")
-    public void createAccount(String email, String firstName, String lastName,
-                              String pass, String address, String city,
-                              String state, String postalCode, String mobilePhone) {
+    public void createAccount(AccInfo accInfo) {
         //Enter email and submit:
-        accInfo = new AccInfo(email, firstName, lastName, pass, address, city, state, postalCode, mobilePhone);
-        accInfo.email = email;
         authPage.fillSignUpForm(accInfo.email);
 
         AccCreationPage accCreationPage = authPage.getAccCreationPage();
         assertNotNull(accCreationPage);
 
         //Fill all requested fields and submit:
-        accInfo.firstName = firstName;
-        accInfo.lastName = lastName;
-        accInfo.pass = pass;
-        accInfo.address = address;
-        accInfo.city = city;
-        accInfo.state = state;
-        accInfo.postalCode = postalCode;
-        accInfo.mobilePhone = mobilePhone;
         accCreationPage.fillRequiredFields(accInfo.firstName, accInfo.lastName,
                 accInfo.pass, accInfo.address, accInfo.city, accInfo.state,
                 accInfo.postalCode, accInfo.mobilePhone);
@@ -84,7 +71,7 @@ public class AccountCreationTests extends BeforeTests {
 
     @DataProvider(name = "dataProvider")
     public Object[][] dpMethod() {
-        accInfo = AccInfo.builder()
+        AccInfo accInfo = AccInfo.builder()
                 .email(emails().domain(testProperties.getProperty("domain")).get())
                 .firstName(names().first().get())
                 .lastName(names().last().get())
@@ -97,9 +84,7 @@ public class AccountCreationTests extends BeforeTests {
                         ints().rangeClosed(10, 99).get().toString() +
                         longs().rangeClosed(900000000, 999999999).get().toString())
                 .build();
-        return new Object[][]{{accInfo.email, accInfo.firstName, accInfo.lastName,
-                accInfo.pass, accInfo.address, accInfo.city,
-                accInfo.state, accInfo.postalCode, accInfo.mobilePhone}};
+        return new Object[][]{{accInfo}};
     }
 
 }
